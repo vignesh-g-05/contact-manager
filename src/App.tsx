@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { Contact, Draft, View } from "./types";
 import { defaultContacts } from "./const/contact";
@@ -8,11 +8,22 @@ import ContactHeading from "./features/contacts/components/contact-heading";
 import DetailsPanel from "./features/details-panel";
 
 export default function App() {
-  const [contacts, setContacts] = useState<Contact[]>(defaultContacts);
+  const [contacts, setContacts] = useState<Contact[]>(() => {
+    try {
+      const parsed = JSON.parse(localStorage.getItem("contacts") || "null");
+      return parsed || defaultContacts;
+    } catch {
+      return defaultContacts;
+    }
+  });
   const [view, setView] = useState<View>("table");
   const [dark, setDark] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [draft, setDraft] = useState<Draft | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   const selected =
     contacts.find((contact) => contact.id === selectedId) ?? null;
