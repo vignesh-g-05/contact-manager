@@ -10,7 +10,8 @@
 
     /* import alias */
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "src/*": ["./src/*"]
     },
 
     /* Bundler mode */
