@@ -31,7 +31,6 @@ const Header = ({ view, onChange, dark, onToggleTheme }: HeaderProps) => {
         >
           {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </button>
-        <span className="text-sm font-medium">Lumen</span>
       </div>
     </header>
   );

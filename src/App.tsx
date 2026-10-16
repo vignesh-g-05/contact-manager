@@ -4,8 +4,8 @@ import type { Contact, Draft, View } from "./types";
 import { defaultContacts } from "./const/contact";
 import Header from "./features/header";
 import { ContactContent } from "./features/contacts/components/contact-content";
-import ContactDetails from "./features/contacts/components/contact-details";
 import ContactHeading from "./features/contacts/components/contact-heading";
+import DetailsPanel from "./features/details-panel";
 
 export default function App() {
   const [contacts, setContacts] = useState<Contact[]>(defaultContacts);
@@ -67,7 +67,7 @@ export default function App() {
         </main>
 
         {selected && draft && (
-          <ContactDetails
+          <DetailsPanel
             contact={selected}
             draft={draft}
             setDraft={setDraft}
