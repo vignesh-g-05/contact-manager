@@ -16,8 +16,10 @@ export default function App() {
       return defaultContacts;
     }
   });
-  const [view, setView] = useState<View>("table");
-  const [dark, setDark] = useState(false);
+  const [view, setView] = useState<View>(
+    localStorage.getItem("view") === "board" ? "board" : "table",
+  );
+  const [dark, setDark] = useState(localStorage.getItem("theme") === "dark");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [draft, setDraft] = useState<Draft | null>(null);
 
@@ -62,9 +64,17 @@ export default function App() {
       <div className="min-h-screen bg-white font-sans text-[#37352f] antialiased dark:bg-[#191919] dark:text-[#ffffffcf]">
         <Header
           view={view}
-          onChange={setView}
+          onChange={(view) => {
+            localStorage.setItem("view", view);
+            setView(view);
+          }}
           dark={dark}
-          onToggleTheme={() => setDark((current) => !current)}
+          onToggleTheme={() =>
+            setDark((current) => {
+              localStorage.setItem("theme", current ? "light" : "dark");
+              return !current;
+            })
+          }
         />
 
         <main className="mx-auto max-w-330 px-6 py-8">
